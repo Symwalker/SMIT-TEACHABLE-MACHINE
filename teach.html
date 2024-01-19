@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="index.css">
     <title>Document</title>
 </head>
-<body>
+<body class="relative">
     <!-- navbar start -->
     <nav
         class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
@@ -50,67 +50,71 @@
     </nav>
     <!-- navbar end -->
 
+     <!-- What can I use Start -->
+     <div class="max-w-[1300px] mx-auto mt-[100px]">
+       
+        <p class="w-[70%] mx-auto text-[18px] text-center">Teachable Machine is flexible – use files or capture examples
+            live. It’s respectful of the way you work. You can even choose to use it entirely on-device, without any
+            webcam or microphone data leaving your computer.</p>
+        <div class="flex justify-center gap-10 mt-12 w-[80%] mx-auto">
+            <a href="./image.html">
 
-    <div style="text-align: center;" class="mt-32"> <h1 class="sm:text-4xl text-center" style="color: #000000; font-size: 48px;font-family: Arial, Helvetica, sans-serif; font-weight: 600;">Teachable Machine Audio Model</h1>
-    
-        <button type="button" style="text-align: center;" class="border p-3 bg-blue-300 rounded-md mt-8 hover:bg-blue-600 hover:text-white font-bold transition duration-300" onclick="init()" id="btn">Record Voice</button>
+            
+            <div class="border border-black p-3 rounded-md">
+                <img src="./assets/teach-images.png" alt="">
+                <div class="flex flex-col gap-8">
 
+                    <p class="font-semibold text-[20px]">Images</p>
+                    <p class="font- text-[18px]">Teach a model to classify images using files or your webcam.</p>
+                </div>
+            </div>
+        </a>
+        <a href="./voice.html">
+            <div class="border border-black p-3 rounded-md">
+                <img src="./assets/teach-poses.png" alt="">
+                <div class="flex flex-col gap-8">
+                    <p class="font-semibold text-[20px]">Sounds</p>
+                    <p class="font- text-[18px]">Teach a model to classify images using files or your webcam.</p>
+                </div>
+            </div>
+        </a>
+        <a href="./poses.html">
+            <div class="border border-black p-3 rounded-md">
+                <img src="./assets/teach-sounds.png" alt="">
+                <div class="flex flex-col gap-8">
+                    <p class="font-semibold text-[20px]">Poses</p>
+                    <p class="font- text-[18px]">Teach a model to classify body positions using files or striking poses
+                        in your webcam.</p>
+                </div>
+            </div>
+        </a>
+        </div>
     </div>
-<div id="label-container" style="text-align: center; margin-top: 70px; font-size: 30px;"></div>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.4.0/dist/speech-commands.min.js"></script>
+    <!-- What can I use End -->
+<div class=" mt-40">
 
-<script type="text/javascript">
-    // more documentation available at
-    // https://github.com/tensorflow/tfjs-models/tree/master/speech-commands
-
-    // the link to your model provided by Teachable Machine export panel
-    const URL = "https://teachablemachine.withgoogle.com/models/2OrAZ6gCj/";
-
-    async function createModel() {
-        const checkpointURL = URL + "model.json"; // model topology
-        const metadataURL = URL + "metadata.json"; // model metadata
-
-        const recognizer = speechCommands.create(
-            "BROWSER_FFT", // fourier transform type, not useful to change
-            undefined, // speech commands vocabulary feature, not useful for your models
-            checkpointURL,
-            metadataURL);
-
-        // check that model and metadata are loaded via HTTPS requests.
-        await recognizer.ensureModelLoaded();
-
-        return recognizer;
-    }
-
-    async function init() {
-        const recognizer = await createModel();
-        const classLabels = recognizer.wordLabels(); // get class labels
-        const labelContainer = document.getElementById("label-container");
-        for (let i = 0; i < classLabels.length; i++) {
-            labelContainer.appendChild(document.createElement("div"));
-        }
-
-        // listen() takes two arguments:
-        // 1. A callback function that is invoked anytime a word is recognized.
-        // 2. A configuration object with adjustable fields
-        recognizer.listen(result => {
-            const scores = result.scores; // probability of prediction for each class
-            // render the probability scores per class
-            for (let i = 0; i < classLabels.length; i++) {
-                const classPrediction = classLabels[i] + ": " + result.scores[i].toFixed(2) + " %";
-                labelContainer.childNodes[i].innerHTML = classPrediction;
-            }
-        }, {
-            includeSpectrogram: true, // in case listen should return result.spectrogram
-            probabilityThreshold: 0.75,
-            invokeCallbackOnNoiseAndUnknown: true,
-            overlapFactor: 0.50 // probably want between 0.5 and 0.75. More info in README
-        });
-
-        // Stop the recognition in 5 seconds.
-        // setTimeout(() => recognizer.stopListening(), 5000);
-    }
-</script>
+    <footer class="bg-gray-100 mt-20 ">
+        <div class="rounded-lg max-w-screen-xl justify-center items-center md:justify-start md:items-start  mx-auto md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
+        
+            <h2 class=" text-[#1A73E8] font-bold ">Teachable Machine</h2>
+            <ul class="flex flex-wrap  items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">About</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline">Contact</a>
+                </li>
+            </ul>
+        </div>
+    
+        
+    </footer>
+</div>
 </body>
 </html>
